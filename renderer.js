@@ -10,4 +10,9 @@
     console.log(await window.exposed.getStuffFromMain())
     
     await window.exposed.sendStuffToMain('Stuff from renderer')
+
+    document.querySelector('#buttonTest').addEventListener('click', () => {
+        window.exposed.btnClick('Well done!')
+    })
 })()
+

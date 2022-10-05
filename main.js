@@ -10,7 +10,7 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
-    autoHideMenuBar: false // true to hide, press Alt to show when hidden
+    autoHideMenuBar: true // true to hide, press Alt to show when hidden
   })
 
   // and load the index.html of the app.
@@ -33,9 +33,11 @@ app.whenReady().then(() => {
 // Example functions for communication between main and renderer (backend/frontend)
 ipcMain.handle('get-stuff-from-main', () => 'Stuff from main!')
 ipcMain.handle('send-stuff-to-main', async (event, data) => console.log(data))
+ipcMain.handle('btnClick', async() => {
+  console.log('button click recieved in main')
+})
 
-
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   app.quit()
   // Check original template for MacOS stuff!
 })
