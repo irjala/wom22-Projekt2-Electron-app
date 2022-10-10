@@ -1,6 +1,11 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+const fetch = require('electron-fetch').default
+
+// Skapa en klass av den
+const Store = require('electron-store')
+const store = new Store()
 
 function createWindow () {
   // Create the browser window.
@@ -32,6 +37,39 @@ app.whenReady().then(() => {
 
 ipcMain.handle('get-notes', async () => {
   console.log('get-notes (main)')
+
+  /*
+  try{
+  const resp = await fetch(API_URL + '/notes',{
+    timeout:2000
+  })
+  const notes = await resp.json()
+  return notes
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+  */
+  return false
+})
+
+ipcMain.handle('notes-login', async (event, data) => {
+  console.log('notes-login (main)')
+
+  try{
+  const resp = await fetch(API_URL + '/users/login',{
+    method: 'POST',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(data),
+    timeout:2000
+  })
+  const notes = await resp.json()
+  return notes
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+  
   return false
 })
 

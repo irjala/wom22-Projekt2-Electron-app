@@ -14,7 +14,16 @@ getNotes = async() => {
 getNotes();
 
 
-document.querySelector('#buttonTest').addEventListener('click', (getNotes))
+document.querySelector('#loginButton').addEventListener('click', async () => {
+    
+    
+    await window.exposed.notesLogin(){
+        email: document.querySelector('#userName').value
+        password: document.querySelector('#password').value
+    }
+
+
+})
 /*
 (async() => {
     console.log(await window.exposed.getStuffFromMain())

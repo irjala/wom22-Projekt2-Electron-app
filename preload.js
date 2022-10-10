@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('exposed', {
   getNotes: () => {
     return ipcRenderer.invoke('get-notes')
   },
+  notesLogin: (data) => ipcRenderer.invoke('notes-login', data),
   /*
   btnClick: () => {
     console.log('We clicked the button')
