@@ -6,11 +6,14 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('exposed', {
 
-  
+  getNotes: () => {
+    return ipcRenderer.invoke('get-notes')
+  },
+  /*
   btnClick: () => {
     console.log('We clicked the button')
-    return ipcRenderer.invoke('btnClick')
-  },
+    return ipcRenderer.invoke('btnClick')*/
+  
 
   // expose a function in main (node) to renderer
   getStuffFromMain: () => ipcRenderer.invoke('get-stuff-from-main'),

@@ -30,13 +30,19 @@ app.whenReady().then(() => {
   // Check original template for MacOS stuff!
 })
 
+ipcMain.handle('get-notes', async () => {
+  console.log('get-notes (main)')
+  return false
+})
+
+/*
 // Example functions for communication between main and renderer (backend/frontend)
 ipcMain.handle('get-stuff-from-main', () => 'Stuff from main!')
 ipcMain.handle('send-stuff-to-main', async (event, data) => console.log(data))
 ipcMain.handle('btnClick', async() => {
   console.log('button click recieved in main')
 })
-
+*/
 app.on('window-all-closed', () => {
   app.quit()
   // Check original template for MacOS stuff!
