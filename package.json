@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "electron-fetch": "^1.9.1"
+    "elect": "^0.0.2",
+    "electron-fetch": "^1.9.1",
+    "electron-store": "^8.1.0"
   }
 }

@@ -5,33 +5,64 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
-getNotes = async() => {
+ getNotes = async () => {
     console.log('getNotes')
-
-    const notes = await window.exposed.getNotes()
+    const notes = await window.electron.getNotes()
     console.log(notes)
-}
-getNotes();
 
-
-document.querySelector('#loginButton').addEventListener('click', async () => {
-    
-    
-    await window.exposed.notesLogin(){
-        email: document.querySelector('#userName').value
-        password: document.querySelector('#password').value
+    if (!notes) {
+        document.querySelector('#login').style.display = 'block'
+        return
     }
 
+    let notesHTML = "";
+    for (const note of notes) {
+        notesHTML += `
+            <div class="note">
+                ${note.text}
+                <input class="btn-del" data-id="${note._id}" type="button" value="del">
+            </div>
+        `;
+    }
+
+    document.querySelector('#notes').innerHTML = notesHTML;
+
+}
+getNotes()
+
+
+document.querySelector('#btn-login').addEventListener('click', async () => {
+    document.querySelector('#msg').innerText = ''
+    const login_failed = await window.electron.notesLogin({
+        email: document.querySelector('#email').value,
+        password: document.querySelector('#password').value
+    })
+    if (login_failed) {
+        document.querySelector('#msg').innerText = login_failed.msg
+        return 
+    }
+
+    document.querySelector('#login').style.display = 'none'
+    getNotes()
+})
+document.querySelector('#btn-save').addEventListener('click', async () => {
+    
+    const noteId = 0
+    const noteText = document.querySelector('#note-text').value
+    const noteSaved = await window.electron.saveNote({
+        id: noteId, 
+        text: noteText
+    })
+    console.log(noteSaved)
+    getNotes()
 
 })
-/*
-(async() => {
-    console.log(await window.exposed.getStuffFromMain())
-    
-    await window.exposed.sendStuffToMain('Stuff from renderer')
-    
-    document.querySelector('#buttonTest').addEventListener('click', () => {
-        window.exposed.btnClick('Well done!')
-    })
-})()*/
 
+document.querySelector('#notes').addEventListener('click', async (event) => {
+    console.log(event.target)
+    if (event.target.classList.contains('btn-del')) {
+        console.log(event.target.getAttribute('data-id'))
+        await window.electron.delNote(event.target.getAttribute('data-id'))
+
+    }
+})

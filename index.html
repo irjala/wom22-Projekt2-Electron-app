@@ -3,21 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-    <title>Jonanyma-Stugmäklar-Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Notes-UI</title>
   </head>
   <body>
-    <div id="logo-title">
-      <h1>Hello World!</h1>
+    <h1>Notes UI</h1>
 
-      <div id="login">
-        <input id="userName" type="text">
-        <input id="password" type="password">
-        <input type="submit" id="loginButton">
-      </div>
+    <div id="login">
+        <input id="email" placeholder="E-mail">
+        <input type="password" id="password" placeholder="Password">
+        <input id="btn-login" type="button" value="Login">
+        <div id="msg" style="color:red;"></div>
     </div>
-    <div id="app-box">
-      <button id="buttonTest" type="button">Click here</button>
+
+    <div id="edit">
+      <input type="hidden" id="0">
+      <textarea id="note-text" placeholder="Write note here..."></textarea><br>
+      <input id="btn-save" type="button" value="Save">
     </div>
+
+    <div id="notes">No notes</div>
+    
+
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
   </body>
