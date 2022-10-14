@@ -5,22 +5,21 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
- getNotes = async () => {
-    console.log('getNotes')
-    const notes = await window.electron.getNotes()
-    console.log(notes)
+ getCabins = async () => {
+    console.log('getCabins')
+    const cabins = await window.electron.getCabins()
+    console.log(cabins)
 
-    if (!notes) {
+    if (!cabins) {
         document.querySelector('#login').style.display = 'block'
         return
     }
 
     let notesHTML = "";
-    for (const note of notes) {
+    for (const cabin of cabins) {
         notesHTML += `
             <div class="note">
-                ${note.text}
-                <input class="btn-del" data-id="${note._id}" type="button" value="del">
+                ${"Address: " + cabin.address} 
             </div>
         `;
     }
@@ -28,7 +27,7 @@
     document.querySelector('#notes').innerHTML = notesHTML;
 
 }
-getNotes()
+getCabins()
 
 
 document.querySelector('#btn-login').addEventListener('click', async () => {
@@ -43,7 +42,7 @@ document.querySelector('#btn-login').addEventListener('click', async () => {
     }
 
     document.querySelector('#login').style.display = 'none'
-    getNotes()
+    getCabins()
 })
 document.querySelector('#btn-save').addEventListener('click', async () => {
     

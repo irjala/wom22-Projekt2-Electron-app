@@ -35,20 +35,27 @@ app.whenReady().then(() => {
   // Check original template for MacOS stuff!
 })
 
-ipcMain.handle('get-notes', async () => {
-  console.log('get-notes (main)')
+// get owned cabins
+ipcMain.handle('get-cabins', async (event, data) => {
+  console.log('get-cabins (main)')
   try {
-    const resp = await fetch(API_URL + '/notes', {
-      headers: { 'Authorization': 'Bearer ' + store.get('jwt') },
-      timeout: 2000
+    console.log("försökler hämta")
+    const resp = await fetch(API_URL + '/cabins/owned/', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + store.get('jwt')
+      },
+      body: JSON.stringify({data}),
+      timeout: 3000
     })
-    const notes = await resp.json()
+    const cabins = await resp.json()
     if (resp.status > 201) {
-      console.log(notes)
+      console.log(cabins)
       return false
     }
 
-    return notes
+    return cabins
 
   } catch (error) {
     console.log(error.message)
@@ -81,6 +88,7 @@ ipcMain.handle('notes-login', async (event, data) => {
 
 })
 
+// notes get 
 ipcMain.handle('save-note', async (event, data) => {
   console.log('save-note (main)')
   try {

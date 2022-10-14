@@ -6,7 +6,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electron', {
 
-  getNotes: () => ipcRenderer.invoke('get-notes'),
+  getCabins: (data) => ipcRenderer.invoke('get-cabins', data),
 
   notesLogin: (data) => ipcRenderer.invoke('notes-login', data),
 
