@@ -1,6 +1,8 @@
 /* styles.css */
 
+
 /* Add styles here to customize the appearance of your app */
+
 #login {
     display: none;
 }
@@ -15,6 +17,6 @@
     float: left;
 }
 
-#choose-service{
+#choose-service {
     margin: 5px;
 }

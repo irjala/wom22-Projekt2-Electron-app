@@ -5,7 +5,9 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
- getCabins = async () => {
+window.Bootstrap = require('bootstrap')
+
+getCabins = async() => {
     console.log('getCabins')
     const cabins = await window.electron.getCabins()
     console.log(cabins)
@@ -30,7 +32,7 @@
 getCabins()
 
 
-document.querySelector('#btn-login').addEventListener('click', async () => {
+document.querySelector('#btn-login').addEventListener('click', async() => {
     document.querySelector('#msg').innerText = ''
     const login_failed = await window.electron.notesLogin({
         email: document.querySelector('#email').value,
@@ -38,28 +40,28 @@ document.querySelector('#btn-login').addEventListener('click', async () => {
     })
     if (login_failed) {
         document.querySelector('#msg').innerText = login_failed.msg
-        return 
+        return
     }
 
     document.querySelector('#login').style.display = 'none'
     getCabins()
 })
 
-document.querySelector('#services').addEventListener('click', async () => {
+document.querySelector('#services').addEventListener('click', async() => {
     console.log('get-services')
     document.querySelector('#choose-service').innerText = 'Choose cabin'
     const services = await window.electron.getServices
-    // Kör eb get request och hämta services från databasen
+        // Kör eb get request och hämta services från databasen
 })
 
-document.querySelector('#orders').addEventListener('click', async () => {
+document.querySelector('#orders').addEventListener('click', async() => {
     document.querySelector('#choos-service').innerText = ''
-    // Kör en POST request och hämta orders från databasen
+        // Kör en POST request och hämta orders från databasen
 })
 
 
 
-document.querySelector('#notes').addEventListener('click', async (event, data) => {
+document.querySelector('#notes').addEventListener('click', async(event, data) => {
     document.querySelector('#choose-service').innerText = 'Choose service'
     console.log(event.target)
     console.log(event.target.getAttribute('_id'))
