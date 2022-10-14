@@ -1,0 +1,8 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+$primary: #000;
+$danger: #ff4136;
+$body-bg: #000;
+$body-color: #111;
+// Required Bootstrap stylesheets
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
