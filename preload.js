@@ -8,11 +8,15 @@ contextBridge.exposeInMainWorld('electron', {
 
   getCabins: (data) => ipcRenderer.invoke('get-cabins', data),
 
-  notesLogin: (data) => ipcRenderer.invoke('notes-login', data),
+  notesLogin: (data) => ipcRenderer.invoke('cabins-login', data),
 
   saveNote: (data) => ipcRenderer.invoke('save-note', data),
 
-  delNote: (data) => ipcRenderer.invoke('del-note', data)
+  delNote: (data) => ipcRenderer.invoke('del-note', data),
+
+  getServices: (data) => ipcRenderer.invoke('get-services', data),
+
+  getOrders: (data) => ipcRenderer.invoke('get-orders', data)
   /*
   btnClick: () => {
     console.log('We clicked the button')

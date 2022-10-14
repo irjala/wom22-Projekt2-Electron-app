@@ -39,7 +39,6 @@ app.whenReady().then(() => {
 ipcMain.handle('get-cabins', async (event, data) => {
   console.log('get-cabins (main)')
   try {
-    console.log("försökler hämta")
     const resp = await fetch(API_URL + '/cabins/owned/', {
       method: 'POST',
       headers: { 
@@ -64,8 +63,31 @@ ipcMain.handle('get-cabins', async (event, data) => {
 
 })
 
-ipcMain.handle('notes-login', async (event, data) => {
-  console.log('notes-login (main)')
+// get services
+ipcMain.handle('get-services', async (event,data) => {
+  console.log('get-services-main')
+  try {
+    const resp = await fetch(API2_URL + '/services', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+      timeout: 3000
+    })
+    const service = await resp.json()
+    console.log(service)
+    
+  } catch (error) {
+    console.log(error.message)
+    return {'msg': error.msg}
+  }
+})
+
+// post services
+
+// post orders
+
+ipcMain.handle('cabins-login', async (event, data) => {
+  console.log('cabins-login (main)')
   try {
     const resp = await fetch(API_URL + '/users/login', {
       method: 'POST',
@@ -77,7 +99,6 @@ ipcMain.handle('notes-login', async (event, data) => {
     console.log(user)
 
     if (resp.status > 201) return user
-
     store.set('jwt', user.token)
     return false // false = login succeeded
 
@@ -87,6 +108,10 @@ ipcMain.handle('notes-login', async (event, data) => {
   }
 
 })
+
+
+
+
 
 // notes get 
 ipcMain.handle('save-note', async (event, data) => {

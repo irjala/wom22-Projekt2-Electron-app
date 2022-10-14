@@ -44,24 +44,23 @@ document.querySelector('#btn-login').addEventListener('click', async () => {
     document.querySelector('#login').style.display = 'none'
     getCabins()
 })
-document.querySelector('#btn-save').addEventListener('click', async () => {
-    
-    const noteId = 0
-    const noteText = document.querySelector('#note-text').value
-    const noteSaved = await window.electron.saveNote({
-        id: noteId, 
-        text: noteText
-    })
-    console.log(noteSaved)
-    getNotes()
 
+document.querySelector('#services').addEventListener('click', async () => {
+    console.log('get-services')
+    document.querySelector('#choose-service').innerText = 'Choose cabin'
+    const services = await window.electron.getServices
+    // Kör eb get request och hämta services från databasen
 })
 
-document.querySelector('#notes').addEventListener('click', async (event) => {
-    console.log(event.target)
-    if (event.target.classList.contains('btn-del')) {
-        console.log(event.target.getAttribute('data-id'))
-        await window.electron.delNote(event.target.getAttribute('data-id'))
+document.querySelector('#orders').addEventListener('click', async () => {
+    document.querySelector('#choos-service').innerText = ''
+    // Kör en POST request och hämta orders från databasen
+})
 
-    }
+
+
+document.querySelector('#notes').addEventListener('click', async (event, data) => {
+    document.querySelector('#choose-service').innerText = 'Choose service'
+    console.log(event.target)
+    console.log(event.target.getAttribute('_id'))
 })
