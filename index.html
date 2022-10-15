@@ -8,26 +8,35 @@
     <title>Notes-UI</title>
 </head>
 
-<body class="bg-light">
-    <div class="container-fluid justify-content-center align-items-center bg-light">
-        <h1>Cabin service app</h1>
+<body class="bg-dark text-white">
 
-        <div class="container-sm p-5 my-5 bg-primary text-white rounded" id="login">
-            <input class="rounded" id="email" placeholder="E-mail">
-            <input class="rounded" type="password" id="password" placeholder="Password">
-            <input id="btn-login" type="button" value="Login">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+            <h1>Cabin service app</h1>
+
+            <div class="container-sm p-5 my-5 bg-info text-dark rounded" id="login">
+                <h3>User login</h3>
+                <input class="rounded" id="email" placeholder="E-mail">
+                <input class="rounded" type="password" id="password" placeholder="Password">
+                <input id="btn-login" type="button" value="Login">
+            </div>
+
             <div id="msg" style="color:red;"></div>
+
+            <div class="container-sm" id="selection">
+                <input id="services" type="button" value="Services">
+                <input id="orders" type="button" value="Orders">
+            </div>
+
+            <div class="container-sm text-white" id="choose-service">No services</div>
+
+            <div class="container-sm text-white" id="notes">No notes</div>
+            <div class="col-md-2"></div>
         </div>
-
-        <div class="container-sm" id="selection">
-            <input id="services" type="button" value="Services">
-            <input id="orders" type="button" value="Orders">
-        </div>
-
-        <div id="choose-service">No services</div>
-
-        <div id="notes">No notes</div>
     </div>
+
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
