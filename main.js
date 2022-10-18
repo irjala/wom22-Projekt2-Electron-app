@@ -7,7 +7,8 @@ const fetch = require('electron-fetch').default
 const Store = require('electron-store')
 const store = new Store()
 
-const API_URL = "https://projekt-1-booking-api.azurewebsites.net"
+const CABIN_API_URL = "https://projekt-1-booking-api.azurewebsites.net"
+const SERVICE_API_URL = "https://api-name.azurewebsites.net"
 
 function createWindow() {
     // Create the browser window.
@@ -35,11 +36,12 @@ app.whenReady().then(() => {
     // Check original template for MacOS stuff!
 })
 
+
 // get owned cabins
 ipcMain.handle('get-cabins', async(event, data) => {
     console.log('get-cabins (main)')
     try {
-        const resp = await fetch(API_URL + '/cabins/owned/', {
+        const resp = await fetch(CABIN_API_URL + '/cabins/owned/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ ipcMain.handle('get-cabins', async(event, data) => {
 ipcMain.handle('get-services', async(event, data) => {
     console.log('get-services-main')
     try {
-        const resp = await fetch(API2_URL + '/services', {
+        const resp = await fetch(SERVICE_API_URL + '/services', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -89,7 +91,7 @@ ipcMain.handle('get-services', async(event, data) => {
 ipcMain.handle('cabins-login', async(event, data) => {
     console.log('cabins-login (main)')
     try {
-        const resp = await fetch(API_URL + '/users/login', {
+        const resp = await fetch(CABIN_API_URL + '/users/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -117,7 +119,7 @@ ipcMain.handle('cabins-login', async(event, data) => {
 ipcMain.handle('save-note', async(event, data) => {
     console.log('save-note (main)')
     try {
-        const resp = await fetch(API_URL + '/notes', {
+        const resp = await fetch(CABIN_API_URL + '/notes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

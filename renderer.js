@@ -5,7 +5,6 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
-window.Bootstrap = require('bootstrap')
 
 getCabins = async() => {
     console.log('getCabins')
@@ -44,6 +43,7 @@ document.querySelector('#btn-login').addEventListener('click', async() => {
     }
 
     document.querySelector('#login').style.display = 'none'
+    document.querySelector('#content').style.display = 'inline'
     getCabins()
 })
 
@@ -55,7 +55,7 @@ document.querySelector('#services').addEventListener('click', async() => {
 })
 
 document.querySelector('#orders').addEventListener('click', async() => {
-    document.querySelector('#choos-service').innerText = ''
+    document.querySelector('#choose-service').innerText = ''
         // Kör en POST request och hämta orders från databasen
 })
 
