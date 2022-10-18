@@ -15,11 +15,12 @@ getCabins = async() => {
         document.querySelector('#login').style.display = 'block'
         return
     }
-
+    document.querySelector('#choose-service').innerHTML = "";
+    document.querySelector('#notes').innerHTML = "";
     let notesHTML = "";
     for (const cabin of cabins) {
         notesHTML += `
-            <div class="note">
+            <div class='container-sm mt-2 p-3 bg-info rounded'>
                 ${"Address: " + cabin.address} 
             </div>
         `;

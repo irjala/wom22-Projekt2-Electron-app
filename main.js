@@ -6,9 +6,10 @@ const fetch = require('electron-fetch').default
 // Skapa en klass av den
 const Store = require('electron-store')
 const store = new Store()
+const serviceStore = new Store()
 
 const CABIN_API_URL = "https://projekt-1-booking-api.azurewebsites.net"
-const SERVICE_API_URL = "https://api-name.azurewebsites.net"
+const SERVICE_API_URL = "https://flask-api-nymajona.rahtiapp.fi/"
 
 function createWindow() {
     // Create the browser window.
@@ -29,13 +30,54 @@ function createWindow() {
 
 }
 
+
 // Called when Electron is ready to create browser windows.
 app.whenReady().then(() => {
     createWindow()
-
-    // Check original template for MacOS stuff!
+    prepareServices()
+        // Check original template for MacOS stuff!
 })
 
+const prepareServices = async() => {
+    try {
+        const resp = await fetch(SERVICE_API_URL + '/services', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            timeout: 3000
+        })
+        const serviceData = await resp.json()
+        if (resp.status > 201) {
+            console.log(cabins)
+            return false
+        }
+
+        for (var i = 0; i < serviceData.length; i++) {
+            var obj = serviceData[i]
+            for (const key in obj) {
+                console.log(key);
+                var setSide;
+                switch (obj[key]) {
+                    case "id":
+                        console.log("Found ID");
+                        setSide = obj;
+                    case "name":
+                        serviceStore.set(setSide, obj[key])
+                        console.log("Key : ", setSide, " Value : ", obj[key])
+                    default:
+                        console.log("Buggy switch");
+                }
+            }
+        }
+
+
+
+    } catch (error) {
+        console.log(error.message)
+        return false
+    }
+}
 
 // get owned cabins
 ipcMain.handle('get-cabins', async(event, data) => {
