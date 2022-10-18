@@ -30,7 +30,6 @@ getCabins = async() => {
 }
 getCabins()
 
-
 document.querySelector('#btn-login').addEventListener('click', async() => {
     document.querySelector('#msg').innerText = ''
     const login_failed = await window.electron.notesLogin({
@@ -44,6 +43,7 @@ document.querySelector('#btn-login').addEventListener('click', async() => {
 
     document.querySelector('#login').style.display = 'none'
     document.querySelector('#content').style.display = 'inline'
+    document.querySelector('#logDiv').style.display = 'inline'
     getCabins()
 })
 
@@ -59,6 +59,10 @@ document.querySelector('#orders').addEventListener('click', async() => {
         // Kör en POST request och hämta orders från databasen
 })
 
+document.querySelector('#logout').addEventListener('click', async() => {
+    console.log("Logout clicked")
+    const logout = await window.electron.logoutReset()
+})
 
 
 document.querySelector('#notes').addEventListener('click', async(event, data) => {

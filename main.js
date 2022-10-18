@@ -112,9 +112,6 @@ ipcMain.handle('cabins-login', async(event, data) => {
 })
 
 
-
-
-
 // notes get 
 ipcMain.handle('save-note', async(event, data) => {
     console.log('save-note (main)')
@@ -156,6 +153,11 @@ ipcMain.handle('del-note', async(event, data) => {
       console.log('button click received in main!')
     })
     */
+ipcMain.handle('logout', async() => {
+    console.log("Logout clicked")
+    app.relaunch()
+    app.exit()
+})
 
 app.on('window-all-closed', () => {
     app.quit()
