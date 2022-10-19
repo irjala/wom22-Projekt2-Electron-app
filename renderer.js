@@ -20,30 +20,24 @@ getCabins = async() => {
     document.querySelector('#notes').innerHTML = "";
     let notesHTML = "";
     for (const cabin of cabins) {
-        let counter = 1;
+        console.log(cabin)
         notesHTML += `
             <div class='container-sm mt-2 p-3 bg-info rounded'><h4>
                 ${"Address: " + cabin.address}</h4>`
-
         for (var i = 0; i < services.length; i++) {
-
             notesHTML += `
-                <div class="serviceClick" id="service${counter}">
-                    ${"Service: " + counter + " " + services[i].name}
+                <div class="row clickable-row">
+                    <div class="selectService" service-id=${services[i].name} cabin-name=${cabin._id}>
+                        ${"Service " + services[i].id + " : " + services[i].name}
+                    </div>
                 </div>`
-            counter++;
         }
         notesHTML += `</div>`;
-
     }
 
     document.querySelector('#notes').innerHTML = notesHTML;
 
-    document.querySelector('.serviceClick').addEventListener('click', async(event, data) => {
-        console.log(this.id)
-    })
 }
-getCabins()
 
 document.querySelector('#btn-login').addEventListener('click', async() => {
     document.querySelector('#msg').innerText = ''
@@ -57,20 +51,25 @@ document.querySelector('#btn-login').addEventListener('click', async() => {
     }
 
     document.querySelector('#login').style.display = 'none'
-    document.querySelector('#content').style.display = 'inline'
+    document.querySelector('#service-content').style.display = 'inline'
     document.querySelector('#logDiv').style.display = 'inline'
+    document.querySelector('#selection').style.display = 'inline'
     getCabins()
+
 })
 
 document.querySelector('#services').addEventListener('click', async() => {
     console.log('get-services')
-    document.querySelector('#choose-service').innerText = 'Choose cabin'
+    document.querySelector('#service-content').style.display = 'inline'
+    document.querySelector('#order-content').style.display = 'none'
     const services = await window.electron.getServices
         // Kör eb get request och hämta services från databasen
 })
 
 document.querySelector('#orders').addEventListener('click', async() => {
     document.querySelector('#choose-service').innerText = ''
+    document.querySelector('#service-content').style.display = 'none'
+    document.querySelector('#order-content').style.display = 'inline'
         // Kör en POST request och hämta orders från databasen
 })
 
@@ -81,7 +80,19 @@ document.querySelector('#logout').addEventListener('click', async() => {
 
 
 document.querySelector('#notes').addEventListener('click', async(event, data) => {
-    document.querySelector('#choose-service').innerText = 'Choose service'
+
+    let pick = confirm("Would you like to get this service?")
+    if (pick) {
+        const sID = event.target.getAttribute('service-id')
+        const cName = event.target.getAttribute('cabin-name')
+            //console.log(sId + " " + cName)
+        const sendOrder = await window.electron.sendOrder(sID, cName)
+
+        if (sendOrder) {
+            console.log("RESPONSE" + sendOrder)
+        } else {
+            console.log("RESPONSE" + sendOrder)
+        }
+    }
     console.log(event.target)
-    console.log(event.target.getAttribute('_id'))
 })

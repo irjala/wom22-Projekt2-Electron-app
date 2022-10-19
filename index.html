@@ -8,14 +8,14 @@
     <title>Notes-UI</title>
 </head>
 
-<body class="bg-dark text-white">
+<body class="bg-dark text-white" style='cursor:pointer'>
 
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-
-            <h1>Cabin service app</h1>
-
+            <div class="container-sm p-2 my-1">
+                <h1>Cabin service app</h1>
+            </div>
             <div class="container-sm p-5 my-5 bg-info text-dark rounded" id="login">
                 <h3>User login</h3>
                 <input class="rounded" id="email" placeholder="E-mail">
@@ -25,21 +25,21 @@
 
             <div id="msg" style="color:red;"></div>
 
-            <div id="content" style="display:none">
-
-                <div class="container-sm p-1" id="selection">
-                    <input id="services" type="button" value="Services">
-                    <input id="orders" type="button" value="Orders">
-                </div>
-
+            <div class="container-sm p-1" id="selection" style="display:none">
+                <input id="services" type="button" value="Services">
+                <input id="orders" type="button" value="Orders">
+            </div>
+            <div id="service-content" style="display:none">
                 <div class="container-sm text-white" id="choose-service">No services</div>
-
                 <div class="container-sm text-dark" id="notes">No notes</div>
             </div>
+            <div id="order-content" style="display:none">
+                <div class="container-sm text-white" id="choose-service">No services</div>
+                <div class="container-sm text-dark" id="ordersMade">No orders</div>
+            </div>
         </div>
-        <div class="col-md-2">
-            <div id="logDiv" style="display:none"><input class="bg-danger" id="logout" type="button" value="Logout"></div>
-        </div>
+    </div>
+    <div id="logDiv" style="display:none"><input class="bg-danger" id="logout" type="button" value="Logout"></div>
     </div>
 
 

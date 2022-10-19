@@ -18,12 +18,9 @@ contextBridge.exposeInMainWorld('electron', {
 
     getOrders: (data) => ipcRenderer.invoke('get-orders', data),
 
-    logoutReset: () => { ipcRenderer.invoke('logout') }
-        /*
-        btnClick: () => {
-          console.log('We clicked the button')
-          return ipcRenderer.invoke('btnClick')*/
+    logoutReset: () => { ipcRenderer.invoke('logout') },
 
+    sendOrder: (a, b) => { ipcRenderer.invoke('order-confirmation', a, b) }
 
     // expose a function in main (node) to renderer
     //getStuffFromMain: () => ipcRenderer.invoke('get-stuff-from-main'),

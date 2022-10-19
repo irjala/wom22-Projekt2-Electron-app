@@ -30,40 +30,12 @@ function createWindow() {
 
 }
 
-
 // Called when Electron is ready to create browser windows.
 app.whenReady().then(() => {
     createWindow()
-    prepareServices()
-        // Check original template for MacOS stuff!
+
+    // Check original template for MacOS stuff!
 })
-
-const prepareServices = async() => {
-    try {
-        const resp = await fetch(SERVICE_API_URL + '/services', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            timeout: 3000
-        })
-        const serviceData = await resp.json()
-        if (resp.status > 201) {
-            console.log(cabins)
-            return false
-        }
-
-        for (var i = 0; i < serviceData.length; i++) {
-            var serviceID = String(serviceData[i].id)
-            var serviceName = String(serviceData[i].name)
-            serviceStore.set(serviceID, serviceName)
-        }
-
-    } catch (error) {
-        console.log(error.message)
-        return false
-    }
-}
 
 
 // get owned cabins
@@ -182,6 +154,30 @@ ipcMain.handle('del-note', async(event, data) => {
       console.log('button click received in main!')
     })
     */
+ipcMain.handle('order-confirmation', async(event, a, b) => {
+    try {
+        const resp = await fetch(SERVICE_API_URL + '/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "service": a, "cabin_id": b }),
+            timeout: 3000
+        })
+        const savedNote = await resp.json()
+        console.log(savedNote)
+
+        if (resp.status > 201) return false
+
+        return savedNote
+
+    } catch (error) {
+        console.log(error.message)
+        return { 'msg': "Note save failed." }
+    }
+
+})
+
 ipcMain.handle('logout', async() => {
     console.log("Logout clicked")
     app.relaunch()
