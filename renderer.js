@@ -15,15 +15,26 @@ getCabins = async() => {
         document.querySelector('#login').style.display = 'block'
         return
     }
+    const services = await window.electron.getServices()
     document.querySelector('#choose-service').innerHTML = "";
     document.querySelector('#notes').innerHTML = "";
     let notesHTML = "";
     for (const cabin of cabins) {
+        let counter = 1;
         notesHTML += `
             <div class='container-sm mt-2 p-3 bg-info rounded'>
-                ${"Address: " + cabin.address} 
-            </div>
-        `;
+                ${"Address: " + cabin.address}`
+
+        for (var i = 0; i < services.length; i++) {
+
+            notesHTML += `
+                <p>
+                    ${"Service: " + counter + " " + services[i].name}
+                </p>`
+            counter++;
+        }
+        notesHTML += `</div>`;
+
     }
 
     document.querySelector('#notes').innerHTML = notesHTML;

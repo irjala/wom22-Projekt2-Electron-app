@@ -54,30 +54,17 @@ const prepareServices = async() => {
         }
 
         for (var i = 0; i < serviceData.length; i++) {
-            var obj = serviceData[i]
-            for (const key in obj) {
-                console.log(key);
-                var setSide;
-                switch (obj[key]) {
-                    case "id":
-                        console.log("Found ID");
-                        setSide = obj;
-                    case "name":
-                        serviceStore.set(setSide, obj[key])
-                        console.log("Key : ", setSide, " Value : ", obj[key])
-                    default:
-                        console.log("Buggy switch");
-                }
-            }
+            var serviceID = String(serviceData[i].id)
+            var serviceName = String(serviceData[i].name)
+            serviceStore.set(serviceID, serviceName)
         }
-
-
 
     } catch (error) {
         console.log(error.message)
         return false
     }
 }
+
 
 // get owned cabins
 ipcMain.handle('get-cabins', async(event, data) => {
@@ -119,7 +106,7 @@ ipcMain.handle('get-services', async(event, data) => {
         })
         const service = await resp.json()
         console.log(service)
-
+        return service
     } catch (error) {
         console.log(error.message)
         return { 'msg': error.msg }
