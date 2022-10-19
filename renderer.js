@@ -22,15 +22,15 @@ getCabins = async() => {
     for (const cabin of cabins) {
         let counter = 1;
         notesHTML += `
-            <div class='container-sm mt-2 p-3 bg-info rounded'>
-                ${"Address: " + cabin.address}`
+            <div class='container-sm mt-2 p-3 bg-info rounded'><h4>
+                ${"Address: " + cabin.address}</h4>`
 
         for (var i = 0; i < services.length; i++) {
 
             notesHTML += `
-                <p>
+                <div class="serviceClick" id="service${counter}">
                     ${"Service: " + counter + " " + services[i].name}
-                </p>`
+                </div>`
             counter++;
         }
         notesHTML += `</div>`;
@@ -39,6 +39,9 @@ getCabins = async() => {
 
     document.querySelector('#notes').innerHTML = notesHTML;
 
+    document.querySelector('.serviceClick').addEventListener('click', async(event, data) => {
+        console.log(this.id)
+    })
 }
 getCabins()
 
