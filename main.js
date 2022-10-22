@@ -85,7 +85,28 @@ ipcMain.handle('get-services', async(event, data) => {
     }
 })
 
-// post services
+// OBS
+// OFÄRDIG orders fetch
+ipcMain.handle('get-orders', async(event, data) => {
+        try {
+            const resp = await fetch(SERVICE_API_URL + '/orders', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + store.get('jwt')
+                },
+
+                body: JSON.stringify(data),
+                timeout: 3000
+            })
+            const orders = await resp.json()
+            return orders
+        } catch (error) {
+            console.log(error.message)
+            return { 'msg': error.msg }
+        }
+    })
+    // post services
 
 // post orders
 

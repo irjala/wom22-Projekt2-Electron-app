@@ -67,7 +67,23 @@ document.querySelector('#services').addEventListener('click', async() => {
 })
 
 document.querySelector('#orders').addEventListener('click', async() => {
-    //document.querySelector('#service-content').innerText = ''
+    const orders = await window.electron.getOrders()
+    let ordersHTML = "";
+    if (!orders) {
+        //document.querySelector('#login').style.display = 'block'
+        return
+    }
+    const services = await window.electron.getServices()
+    document.querySelector('#choose-order').innerHTML = "";
+
+    for (const order of orders) {
+        ordersHTML += `
+            <div class='container-sm mt-2 p-3 bg-info rounded'>
+                ${"Address: " + order.name}`
+    }
+    ordersHTML += `</div>`;
+
+    document.querySelector('#choose-order').innerHTML = ordersHTML;
     document.querySelector('#order-content').innerText = ''
     document.querySelector('#service-content').style.display = 'none'
     document.querySelector('#order-content').style.display = 'inline'
