@@ -26,6 +26,8 @@
         "dotenv": "^16.0.3",
         "elect": "^0.0.2",
         "electron-fetch": "^1.9.1",
-        "electron-store": "^8.1.0"
+        "electron-store": "^8.1.0",
+        "querystring": "^0.2.1",
+        "stringify": "^5.2.0"
     }
 }

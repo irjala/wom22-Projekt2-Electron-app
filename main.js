@@ -5,8 +5,8 @@ const fetch = require('electron-fetch').default
 
 // Skapa en klass av den
 const Store = require('electron-store')
+const { stringify } = require('querystring')
 const store = new Store()
-const serviceStore = new Store()
 
 const CABIN_API_URL = "https://projekt-1-booking-api.azurewebsites.net"
 const SERVICE_API_URL = "https://flask-api-nymajona.rahtiapp.fi/"
@@ -156,6 +156,8 @@ ipcMain.handle('del-note', async(event, data) => {
     */
 ipcMain.handle('order-confirmation', async(event, a, b) => {
     try {
+        console.log("SCREAM")
+
         const resp = await fetch(SERVICE_API_URL + '/orders', {
             method: 'POST',
             headers: {
@@ -165,6 +167,7 @@ ipcMain.handle('order-confirmation', async(event, a, b) => {
             timeout: 3000
         })
         const savedNote = await resp.json()
+
         console.log(savedNote)
 
         if (resp.status > 201) return false
@@ -172,8 +175,8 @@ ipcMain.handle('order-confirmation', async(event, a, b) => {
         return savedNote
 
     } catch (error) {
-        console.log(error.message)
-        return { 'msg': "Note save failed." }
+        console.log("Visst är det här som error kmr" + error.message)
+        return "Service was not available"
     }
 
 })

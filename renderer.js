@@ -22,8 +22,8 @@ getCabins = async() => {
     for (const cabin of cabins) {
         console.log(cabin)
         notesHTML += `
-            <div class='container-sm mt-2 p-3 bg-info rounded'><h4>
-                ${"Address: " + cabin.address}</h4>`
+            <div class='container-sm mt-2 p-3 bg-info rounded'>
+                ${"Address: " + cabin.address}`
         for (var i = 0; i < services.length; i++) {
             notesHTML += `
                 <div class="row clickable-row">
@@ -67,7 +67,8 @@ document.querySelector('#services').addEventListener('click', async() => {
 })
 
 document.querySelector('#orders').addEventListener('click', async() => {
-    document.querySelector('#choose-service').innerText = ''
+    //document.querySelector('#service-content').innerText = ''
+    document.querySelector('#order-content').innerText = ''
     document.querySelector('#service-content').style.display = 'none'
     document.querySelector('#order-content').style.display = 'inline'
         // Kör en POST request och hämta orders från databasen
@@ -89,10 +90,9 @@ document.querySelector('#notes').addEventListener('click', async(event, data) =>
         const sendOrder = await window.electron.sendOrder(sID, cName)
 
         if (sendOrder) {
-            console.log("RESPONSE" + sendOrder)
+            console.log("yay") //event.target.style = "color:gold"
         } else {
             console.log("RESPONSE" + sendOrder)
         }
     }
-    console.log(event.target)
 })
